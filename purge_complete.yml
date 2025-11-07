@@ -1,0 +1,37 @@
+name: Purge Repository (Complete Reset)
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove tracked files with git
+        run: |
+          # Remove all tracked files (but keep .github to retain workflows)
+          git rm -r --cached .
+          git ls-files -z | xargs -0 git rm -f || true
+          # Remove everything except .github directory
+          find . -mindepth 1 -maxdepth 2 ! -path './.github' ! -path './.github/*' -exec rm -rf {} +
+          # Ensure a placeholder README exists so repo isn't entirely empty in some UIs
+          echo "ETHRION repo reset - placeholder README" > README.md
+          git add README.md
+
+      - name: Commit purge
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add -A
+          git commit -m "Purge repository: complete reset (preserve .github workflows)" || echo "Nothing to commit"
+
+      - name: Push purge
+        run: |
+          git push origin HEAD:main

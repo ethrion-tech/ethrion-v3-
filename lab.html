@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETHRION — Lab</title>
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta property="og:image" content="assets/icons/og-1200x630.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/i18n.js" defer></script>
+<script src="js/checklist.js" defer></script>
+
+</head><body>
+<header>
+  <div class="bar">
+    <a href="index.html" class="logo"><img src="assets/logo/ethrion_dark.svg" alt="ETHRION" width="140"></a>
+    <nav>
+      <a href="index.html" class="navlink" data-i18n="nav.home">Home</a>
+      <a href="rooms.html" class="navlink" data-i18n="nav.rooms">Rooms</a>
+      <a href="about.html" class="navlink" data-i18n="nav.about">About</a>
+      <a href="lab.html" class="navlink" data-i18n="nav.lab">Lab</a>
+      <a href="projects.html" class="navlink" data-i18n="nav.projects">Projects</a>
+      <a href="insights.html" class="navlink" data-i18n="nav.insights">Insights</a>
+      <a href="connect.html" class="navlink" data-i18n="nav.connect">Contact</a>
+      <a href="lumien.html" class="navlink" data-i18n="nav.lumien">Lumien</a>
+      <a href="aion.html" class="navlink" data-i18n="nav.aion">AION</a>
+      <select id="langSel"><option value="en">EN</option><option value="ko">KO</option></select>
+    </nav>
+  </div>
+</header>
+
+<section class='section'><div class='container'>
+  <h1>Lab — LQ Quick Radar</h1>
+  <div class="grid">
+    <div class="card"><canvas id="radar" class="chart" style="height:320px"></canvas></div>
+    <div class="card">
+      <div class="grid">
+        <label>1 Cognitive <input name="c0" type="number" min="0" max="100" value="70"></label>
+        <label>2 Emotional <input name="c1" type="number" min="0" max="100" value="68"></label>
+        <label>3 Creative <input name="c2" type="number" min="0" max="100" value="72"></label>
+        <label>4 Strategic <input name="c3" type="number" min="0" max="100" value="66"></label>
+        <label>5 Ethical <input name="c4" type="number" min="0" max="100" value="74"></label>
+        <label>6 Systemic <input name="c5" type="number" min="0" max="100" value="71"></label>
+        <label>7 Self‑Insight <input name="c6" type="number" min="0" max="100" value="69"></label>
+        <label>8 Resilience <input name="c7" type="number" min="0" max="100" value="73"></label>
+      </div>
+    </div>
+  </div>
+</div></section>
+<script src="js/radar.js" defer></script>
+
+<footer class="footer"><div class="container">© 2025 ETHRION</div></footer>
+</body></html>
