@@ -1,0 +1,67 @@
+name: Reset and Deploy from mobile_drop
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  reset_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Purge tracked files (preserve .github)
+        run: |
+          git rm -r --cached .
+          git ls-files -z | xargs -0 git rm -f || true
+          find . -mindepth 1 -maxdepth 2 ! -path './.github' ! -path './.github/*' -exec rm -rf {} +
+          echo "ETHRION reset placeholder" > README.md
+          git add README.md
+          git commit -m "Purge repo before deploy" || echo "Nothing to commit"
+
+      - name: Push purge commit
+        run: git push origin HEAD:main
+
+      - name: Prepare tools
+        run: sudo apt-get update && sudo apt-get install -y unzip rsync
+
+      - name: Wait for push to settle
+        run: sleep 3
+
+      - name: Ensure mobile_drop exists
+        run: |
+          mkdir -p mobile_drop
+          if [ -f "ETHRION_v3.4_MobileReady_Full.zip" ]; then
+            cp ETHRION_v3.4_MobileReady_Full.zip mobile_drop/
+          fi
+
+      - name: Unzip and merge mobile_drop (with folder restore)
+        run: |
+          set -e
+          shopt -s nullglob
+          SRC="mobile_drop"
+          for z in "$SRC"/*.zip; do
+            echo "Unzipping $z"
+            unzip -o "$z" -d "$SRC/_unzipped"
+          done
+          if [ -d "$SRC/_unzipped" ]; then
+            SRC="$SRC/_unzipped"
+          fi
+          find "$SRC" -type f | while read -r f; do
+            bn="$(basename "$f")"
+            if echo "$bn" | grep -q "__"; then
+              dir="$(echo "$bn" | sed 's@__@/@g' | sed 's@/[^/]*$@@')"
+              mkdir -p "$SRC/$dir"
+              mv "$f" "$SRC/$dir/$(echo "$bn" | sed 's@.*__@@')"
+            fi
+          done
+          rsync -a "$SRC"/ ./ --exclude 'mobile_drop/**' --exclude '.github/**'
+          git add -A
+          git commit -m "Deploy: merged mobile_drop contents" || echo "Nothing to commit"
+
+      - name: Push deployed files
+        run: git push origin HEAD:main
