@@ -1,0 +1,23 @@
+:root{--bg:#070a12;--fg:#eaf2ff;--muted:#b0c6ff;--line:rgba(255,255,255,.14);--maxw:1120px}
+*{box-sizing:border-box} html,body{margin:0;padding:0;background:radial-gradient(1200px 800px at 50% -10%, #0d1530, #070a12 60%, #06070c);
+color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,Inter,Segoe UI,Roboto,Helvetica,Arial;-webkit-font-smoothing:antialiased}
+header{position:sticky;top:0;backdrop-filter:saturate(160%) blur(12px);background:rgba(8,12,24,.38);border-bottom:1px solid var(--line);z-index:5}
+header .bar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:12px;flex-wrap:wrap}
+nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.navlink{text-decoration:none;color:var(--muted);font-weight:650;border-bottom:2px solid transparent;padding:6px 0}
+.navlink:hover{color:var(--fg);border-color:rgba(255,255,255,.18)}
+select#langSel{background:rgba(255,255,255,.06);color:var(--fg);border:1px solid var(--line);padding:8px 10px;border-radius:10px}
+.container{max-width:var(--maxw);margin:0 auto;padding:56px 18px}
+.section{padding:56px 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));padding:16px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.hero img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.btn{display:inline-block;border:1px solid var(--line);padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--fg)}
+.btn.primary{border-color:transparent;background:linear-gradient(90deg,#7dd3fc,#a78bfa);color:#071018;font-weight:800}
+.footer{border-top:1px solid var(--line);padding:26px 18px;margin-top:36px;opacity:.9}
+.checklist{list-style:none;padding:0;margin:0}.checklist li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line)}
+.muted{opacity:.8}
+.chart{width:100%;height:260px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+@media (max-width:420px){.container,.section{padding:36px 14px}.grid{grid-template-columns:1fr}}

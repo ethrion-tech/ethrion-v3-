@@ -1,0 +1,72 @@
+{
+  "$schema": "./ion.config.schema.json",
+  "project": {
+    "name": "ETHRION",
+    "domain": "ethrion.tech",
+    "repo": "github.com/ethrion-tech/Ethrion-tech",
+    "timezone": "Asia/Seoul"
+  },
+  "language": {
+    "ui": "ko",
+    "content_default": "en"
+  },
+  "autonomy": {
+    "ask_before_action": false,
+    "allowed_actions": [
+      "plan",
+      "design",
+      "write",
+      "generate_code",
+      "update_docs",
+      "analyze_market",
+      "create_assets"
+    ],
+    "human_required_actions": [
+      "payments",
+      "domain_purchase",
+      "partnership_approval",
+      "legal_review",
+      "public_release"
+    ]
+  },
+  "risk_model": {
+    "positivity_bias": 0.0,
+    "risk_aversion": 0.45,
+    "evidence_threshold": "high",
+    "fail_fast_rules": [
+      "트래픽이 목표의 50% 미만이면 실험 중단",
+      "법·결제·개인정보 리스크 감지 시 즉시 보류"
+    ]
+  },
+  "reporting": {
+    "status_frequency": "daily",
+    "include_sections": [
+      "milestones",
+      "percent_complete",
+      "artifacts",
+      "next_actions",
+      "risks"
+    ]
+  },
+  "data_policy": {
+    "store_conversation_locally": true,
+    "retain_days": 365,
+    "pii_redaction": true
+  },
+  "content_policy": {
+    "tone": "objective",
+    "no_fluff": true,
+    "citations_required": false
+  },
+  "delivery": {
+    "web_stack": "nextjs_tailwind",
+    "build_command": "npm run build",
+    "preview_command": "npm run dev",
+    "output_dir": ".next"
+  },
+  "assets": {
+    "logo_primary": "public/brand/ethrion_logo.svg",
+    "avatar_aion": "public/brand/avatar_aion.png",
+    "avatar_lumion": "public/brand/avatar_lumion.png"
+  }
+}

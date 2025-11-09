@@ -1,0 +1,29 @@
+
+/* Viewport & safe areas */
+:root { --gap: 16px; --touch: 44px; }
+body { margin: 0; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+
+/* Typography scale */
+html { font-size: 100%; } /* 16px base */
+@media (max-width: 360px) { html { font-size: 93.75%; } } /* 15px */
+@media (min-width: 768px) { html { font-size: 106.25%; } } /* 17px */
+
+/* Touch targets */
+button, .btn, .toggle { min-height: var(--touch); min-width: var(--touch); padding: 12px 16px; }
+
+/* Focus styles */
+:focus-visible { outline: 3px solid rgba(0, 169, 255, .8); outline-offset: 3px; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* Responsive media */
+img, canvas, svg { max-width: 100%; height: auto; }
+
+/* Grid */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 var(--gap); }
+.grid { display: grid; gap: var(--gap); }
+@media (min-width: 768px) { .grid.cols-2 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }

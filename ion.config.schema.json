@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ION Business Operation Config",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "domain": { "type": "string" },
+        "repo": { "type": "string" },
+        "timezone": { "type": "string" }
+      },
+      "required": ["name", "domain", "repo"]
+    },
+    "language": {
+      "type": "object",
+      "properties": {
+        "ui": { "type": "string", "enum": ["en", "ko", "multi"] },
+        "content_default": { "type": "string", "enum": ["en", "ko"] }
+      },
+      "required": ["ui", "content_default"]
+    },
+    "autonomy": {
+      "type": "object",
+      "properties": {
+        "ask_before_action": { "type": "boolean" },
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "plan",
+              "write",
+              "design",
+              "generate_code",
+              "create_assets",
+              "update_docs",
+              "create_issues",
+              "open_pr"
+            ]
+          }
+        },
+        "human_required_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "payments",
+              "domain_purchase",
+              "account_login",
+              "production_deploy",
+              "legal_decision"
+            ]
+          }
+        }
+      },
+      "required": ["ask_before_action", "allowed_actions", "human_required_actions"]
+    },
+    "risk_model": {
+      "type": "object",
+      "properties": {
+        "positivity_bias": { "type": "number", "minimum": 0, "maximum": 1 },
+        "risk_aversion": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence_threshold": { "type": "string", "enum": ["low", "medium", "high"] },
+        "fail_fast_rules": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["positivity_bias", "risk_aversion", "evidence_threshold"]
+    },
+    "reporting": {
+      "type": "object",
+      "properties": {
+        "status_frequency": { "type": "string", "enum": ["hourly", "daily", "weekly"] },
+        "include_sections": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["milestones", "percent_complete", "artifacts", "next_actions", "risks"]
+          }
+        }
+      },
+      "required": ["status_frequency", "include_sections"]
+    },
+    "data_policy": {
+      "type": "object",
+      "properties": {
+        "store_conversation_locally": { "type": "boolean" },
+        "retain_days": { "type": "integer", "minimum": 0 },
+        "pii_redaction": { "type": "boolean" }
+      },
+      "required": ["store_conversation_locally", "retain_days", "pii_redaction"]
+    },
+    "content_policy": {
+      "type": "object",
+      "properties": {
+        "tone": { "type": "string", "enum": ["calm", "direct", "warm", "playful"] },
+        "no_fluff": { "type": "boolean" },
+        "citations_required": { "type": "boolean" }
+      },
+      "required": ["tone", "no_fluff", "citations_required"]
+    },
+    "delivery": {
+      "type": "object",
+      "properties": {
+        "web_stack": { "type": "string", "enum": ["nextjs_tailwind", "static_html"] },
+        "build_command": { "type": "string" },
+        "preview_command": { "type": "string" },
+        "output_dir": { "type": "string" }
+      },
+      "required": ["web_stack", "build_command", "preview_command", "output_dir"]
+    },
+    "assets": {
+      "type": "object",
+      "properties": {
+        "logo_primary": { "type": "string" },
+        "avatar_aion": { "type": "string" },
+        "avatar_lumion": { "type": "string" }
+      }
+    },
+    "lq_profile": {
+      "type": "object",
+      "description": "Lumion Quant profile weights (custom human–AI collaboration index).",
+      "properties": {
+        "weights": {
+          "type": "object",
+          "properties": {
+            "strategic_reasoning": { "type": "number" },
+            "systems_thinking": { "type": "number" },
+            "execution_reliability": { "type": "number" },
+            "communication_clarity": { "type": "number" },
+            "risk_awareness": { "type": "number" },
+            "learning_velocity": { "type": "number" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["weights"]
+    }
+  },
+  "required": ["project", "language", "autonomy", "risk_model", "reporting", "data_policy", "content_policy", "delivery"]
+}
